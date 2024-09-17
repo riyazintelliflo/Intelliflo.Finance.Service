@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 public class HttpClientHelper
 {
     private static readonly HttpClient client = new HttpClient();
-    private static string baseUrl = $"https://api.census.gov/data/{year}/acs/acs1";
     private static readonly int year = 2023;
+    private static string baseUrl = $"https://api.census.gov/data/{year}/acs/acs1";
+    
 
     /// <summary>
     /// Get income details.

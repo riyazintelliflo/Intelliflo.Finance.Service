@@ -30,11 +30,11 @@ namespace Intelliflo.Finance.Service.Controllers
         {            
             if(string.IsNullOrEmpty(filter))
             {
-                filter = $"?get=NAME,B01001_001E&for=county:*&in=state:*&key={ApiKey}";
+                filter = $"?get=NAME,B01001_001E&for=state:*&key={ApiKey}";
             }
             else
             {
-                filter = $"?get={filter}&for=county:*&in=state:*&key={ApiKey}";
+                filter = $"?get={filter}&for=state:*&key={ApiKey}";
             }
 
             var response = await _httpClientHelper.GetAsync(filter, year);
@@ -43,7 +43,7 @@ namespace Intelliflo.Finance.Service.Controllers
             {
                 return NotFound();
             }
-            var json = JObject.Parse(response);
+            var json = JArray.Parse(response);
             Console.WriteLine(json.ToString());
             return Ok(response);            
         }

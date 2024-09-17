@@ -1,9 +1,12 @@
 using Intelliflo.Finance.Service.Repositories.Contracts;
 using Intelliflo.Finance.Service.Repositories.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<FactfindDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
 
