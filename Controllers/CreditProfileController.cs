@@ -1,4 +1,5 @@
-﻿using Intelliflo.Finance.Service.Repositories.Contracts;
+﻿using Intelliflo.Finance.Service.Models;
+using Intelliflo.Finance.Service.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +11,15 @@ namespace Intelliflo.Finance.Service.Controllers
     {
         private readonly ICreditProfile _creditprofile = creditprofile;
 
-        [HttpGet]
-        public IActionResult GetCreditProfileByID()
+        [HttpPost]
+        public IActionResult GetCreditProfileByID([FromBody]CreditProfileRequest request) 
         {
-            return Ok("Credit Profile");
+            var userCreditProfile = _creditprofile.GetUserCreditProfile(request);
+            if (userCreditProfile == null)
+            {
+                return NotFound("User credit profile not found.");
+            }
+            return Ok(userCreditProfile);
         }
     }
 }

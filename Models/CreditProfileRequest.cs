@@ -1,4 +1,5 @@
-﻿namespace Intelliflo.Finance.Service.Models
+﻿
+namespace Intelliflo.Finance.Service.Models
 {
     public class CreditProfileRequest
     {

@@ -1,7 +1,9 @@
-﻿namespace Intelliflo.Finance.Service.Repositories.Contracts
+﻿using Intelliflo.Finance.Service.Models;
+using Intelliflo.Finance.Service.Models.Response;
+namespace Intelliflo.Finance.Service.Repositories.Contracts
 {
     public interface ICreditProfile
     {
-        public void GetUserCreditProfile();
+        public UserCreditProfile GetUserCreditProfile(CreditProfileRequest request);
     }
 }

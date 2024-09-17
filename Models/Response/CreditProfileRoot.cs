@@ -2,7 +2,7 @@
 {
     public class CreditProfileRoot
     {
-        public List<CreditProfile> CreditProfile { get; set; }
+        public List<UserCreditProfile> CreditProfile { get; set; }
     }
 
 }
