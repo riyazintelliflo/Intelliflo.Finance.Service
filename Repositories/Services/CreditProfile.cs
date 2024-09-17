@@ -1,4 +1,4 @@
-﻿]using Intelliflo.Finance.Service.Repositories.Contracts;
+﻿using Intelliflo.Finance.Service.Repositories.Contracts;
 
 namespace Intelliflo.Finance.Service.Repositories.Services
 {

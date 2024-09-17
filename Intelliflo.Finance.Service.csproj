@@ -10,4 +10,9 @@
     <Folder Include="Models\DTO\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Faker" Version="1.2.0" />
+    <PackageReference Include="OoplesFinance.YahooFinanceAPI" Version="1.6.4" />
+  </ItemGroup>
+
 </Project>
