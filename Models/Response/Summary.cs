@@ -3,10 +3,10 @@
     public class Summary
     {
         public string SummaryType { get; set; }
-        public List<Attribute> Attributes { get; set; }
+        public List<UserAttribute> Attributes { get; set; }
     }
 
-    public class Attribute
+    public class UserAttribute
     {
         public string Id { get; set; }
         public string Value { get; set; }

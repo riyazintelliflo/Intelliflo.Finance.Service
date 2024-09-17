@@ -3,7 +3,7 @@
     public class ConsumerIdentity
     {
         public Dob Dob { get; set; }
-        public List<Name> Name { get; set; }
+        public Name Name { get; set; }
         public List<Phone> Phone { get; set; }
     }
 
@@ -18,6 +18,7 @@
     {
         public string FirstName { get; set; }
         public string Surname { get; set; }
+        public string MiddleName { get; set; }
     }
 
     public class Phone
