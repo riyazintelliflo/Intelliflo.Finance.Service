@@ -29,20 +29,19 @@ namespace Intelliflo.Finance.Service.Repositories.Services
             return response;
         }
 
-        public TAssetsAndLiabilities GetUserPortfolio(int clientId)
+        public IOClientPortfolio GetUserPortfolio(int clientId)
         {
             var assets = _factfindDbContext.TAssets
                 .Include(a => a.TAssetCategory)
-                .Where(x => x.CRMContactId.Equals(clientId)).ToList();
+                .Where(x => x.CRMContactId.Equals(clientId)).AsNoTracking().ToList();
             var liabilities = _factfindDbContext.TLiabilities.Where(x => x.CRMContactId.Equals(clientId)).AsNoTracking().ToList();
 
-            var assetsAndLiabilities = new TAssetsAndLiabilities()
+            return new IOClientPortfolio()
             {
                 CRMContactId = clientId,
                 Asset = assets,
                 Liability = liabilities
             };
-            return assetsAndLiabilities;
         }
     }
 }

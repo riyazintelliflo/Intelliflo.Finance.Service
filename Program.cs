@@ -3,7 +3,19 @@ using Intelliflo.Finance.Service.Repositories.Contracts;
 using Intelliflo.Finance.Service.Repositories.Services;
 using NETCore.MailKit.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+using Intelliflo.Finance.Service.Middleware;
 
+Log.Logger = new LoggerConfiguration()
+           .ReadFrom.Configuration(new ConfigurationBuilder()
+        .AddJsonFile("appsettings.json")
+        .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
+        .Build())
+           .Enrich.FromLogContext()
+           .WriteTo.Console()
+           .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
+           .CreateLogger();
+Log.Information("Starting up the application");
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -34,6 +46,7 @@ builder.Services.AddCors(options =>
         });
 });
 var app = builder.Build();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseCors("AllowAllOrigins");
 // Enable middleware to serve generated Swagger as a JSON endpoint
 app.UseSwagger();
@@ -46,3 +59,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

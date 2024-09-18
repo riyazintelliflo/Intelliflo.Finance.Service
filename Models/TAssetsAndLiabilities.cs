@@ -1,4 +1,4 @@
-﻿public class TAssetsAndLiabilities
+﻿public class IOClientPortfolio
 {
     
     public int CRMContactId { get; set; }
