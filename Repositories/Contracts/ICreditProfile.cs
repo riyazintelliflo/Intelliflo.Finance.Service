@@ -5,5 +5,7 @@ namespace Intelliflo.Finance.Service.Repositories.Contracts
     public interface ICreditProfile
     {
         public UserCreditProfile GetUserCreditProfile(CreditProfileRequest request);
+
+        
     }
 }

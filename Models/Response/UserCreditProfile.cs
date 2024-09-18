@@ -11,6 +11,8 @@ namespace Intelliflo.Finance.Service.Models.Response
         public List<RiskModel> RiskModel { get; set; }
         public string Ssn { get; set; }
         public List<Summary> Summaries { get; set; }
+
+        public List<Tradeline> Tradeline { get; set; }
     }
 
     //   public List<Tradeline> Tradeline { get; set; }

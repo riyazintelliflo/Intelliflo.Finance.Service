@@ -9,10 +9,10 @@ namespace Intelliflo.Finance.Service.Helpers
         public static UserCreditProfile GenerateFakeUserCreditProfile()
         {
             var faker = new Faker();
-             
+
             var creditProfile = new UserCreditProfile
             {
-                 AddressInformation = new List<AddressInformation>
+                AddressInformation = new List<AddressInformation>
                 {
                 new AddressInformation()
                 {
@@ -104,12 +104,65 @@ namespace Intelliflo.Finance.Service.Helpers
                         new ScoreFactor { Importance = "4", Code = faker.Random.Number(10, 99).ToString() }
                     }
                 }
-            }
+            },
+                Tradeline = GenerateFakeTradelines(2)
             };
 
             return creditProfile;
         }
 
-        
+
+        public static List<Tradeline> GenerateFakeTradelines(int count = 1)
+        {
+            var enhancedPaymentDataFaker = new Faker<EnhancedPaymentData>()
+                .RuleFor(e => e.ChargeoffAmount, f => f.Finance.Amount(0, 10000).ToString("0000000000"))
+                .RuleFor(e => e.CreditLimitAmount, f => f.Random.Bool() ? "UNKNOWN" : f.Finance.Amount(0, 10000).ToString("0000000000"))
+                .RuleFor(e => e.EnhancedAccountCondition, f => f.Random.Number(10, 99).ToString())
+                .RuleFor(e => e.EnhancedAccountType, f => f.Random.Number(10, 99).ToString())
+                .RuleFor(e => e.EnhancedPaymentHistory84, f => f.Random.String2(14, "L54321CCC"))
+                .RuleFor(e => e.EnhancedPaymentStatus, f => f.Random.Number(10, 99).ToString())
+                .RuleFor(e => e.EnhancedSpecialComment, f => f.Random.Number(10, 99).ToString())
+                .RuleFor(e => e.EnhancedTerms, f => f.Random.String2(3, "REV"))
+                .RuleFor(e => e.EnhancedTermsFrequency, f => f.Random.String2(1, "M"))
+                .RuleFor(e => e.FirstDelinquencyDate, f => f.Date.Future().ToString("MMddyyyy"))
+                .RuleFor(e => e.HighBalanceAmount, f => f.Finance.Amount(0, 10000).ToString("0000000000"))
+                .RuleFor(e => e.PaymentLevelDate, f => f.Date.Past().ToString("MMddyyyy"))
+                .RuleFor(e => e.SecondDelinquencyDate, f => f.Date.Future().ToString("MMddyyyy"));
+
+            var tradelineFaker = new Faker<Tradeline>()
+                .RuleFor(t => t.AccountNumber, f => f.Finance.Account())
+                .RuleFor(t => t.AccountType, f => f.PickRandom<AccountType>())
+                .RuleFor(t => t.Amount1, f => f.Finance.Amount(0, 10000).ToString("0000000000"))
+                .RuleFor(t => t.Amount1Qualifier, f => f.Random.String2(1, "HC"))
+                .RuleFor(t => t.Amount2, f => f.Finance.Amount(0, 10000).ToString("0000000000"))
+                .RuleFor(t => t.Amount2Qualifier, f => f.Random.String2(1, "HC"))
+                .RuleFor(t => t.AmountPastDue, f => f.Finance.Amount(0, 10000).ToString("0000000000"))
+                .RuleFor(t => t.BalanceAmount, f => f.Finance.Amount(0, 10000).ToString("0000000000"))
+                .RuleFor(t => t.BalanceDate, f => f.Date.Future().ToString("MMddyyyy"))
+                .RuleFor(t => t.Delinquencies30Days, f => f.Random.Number(0, 9).ToString("00"))
+                .RuleFor(t => t.Delinquencies60Days, f => f.Random.Number(0, 9).ToString("00"))
+                .RuleFor(t => t.Delinquencies90to180Days, f => f.Random.Number(0, 9).ToString("00"))
+                .RuleFor(t => t.DerogCounter, f => f.Random.Number(0, 9).ToString("00"))
+                .RuleFor(t => t.Ecoa, f => f.Random.Number(1, 9).ToString())
+                .RuleFor(t => t.EnhancedPaymentData, f => enhancedPaymentDataFaker.Generate())
+                .RuleFor(t => t.Evaluation, f => f.Random.String2(1, "N"))
+                .RuleFor(t => t.Kob, f => f.Random.String2(2, "BC"))
+                .RuleFor(t => t.LastPaymentDate, f => f.Date.Past().ToString("MMddyyyy"))
+                .RuleFor(t => t.MonthsHistory, f => f.Random.Number(1, 99).ToString())
+                .RuleFor(t => t.OpenDate, f => f.Date.Past().ToString("MMddyyyy"))
+                .RuleFor(t => t.OpenOrClosed, f => f.Random.String2(1, "C"))
+                .RuleFor(t => t.PaymentHistory, f => f.Random.String2(14, "99999954321CCC"))
+                .RuleFor(t => t.RevolvingOrInstallment, f => f.Random.String2(1, "R"))
+                .RuleFor(t => t.SpecialComment, f => f.Random.Number(10, 99).ToString())
+                .RuleFor(t => t.Status, f => f.Random.Number(10, 99).ToString())
+                .RuleFor(t => t.StatusDate, f => f.Date.Past().ToString("MMddyyyy"))
+                .RuleFor(t => t.SubscriberCode, f => f.Random.Number(1000000, 9999999).ToString())
+                .RuleFor(t => t.SubscriberName, f => f.Company.CompanyName())
+                .RuleFor(t => t.Terms, f => f.Random.String2(3, "REV"));
+
+            return tradelineFaker.Generate(count);
+        }
+
+
     }
 }
