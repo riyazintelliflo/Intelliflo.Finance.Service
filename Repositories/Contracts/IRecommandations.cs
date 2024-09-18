@@ -1,6 +1,9 @@
-﻿namespace Intelliflo.Finance.Service.Repositories.Contracts
+﻿using OoplesFinance.YahooFinanceAPI.Models;
+
+namespace Intelliflo.Finance.Service.Repositories.Contracts
 {
-    public class IRecommandations
+    public interface IRecommandation
     {
+        public  Task<ScreenerResult> GetRecommandations();
     }
 }

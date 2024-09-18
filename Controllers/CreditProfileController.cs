@@ -34,7 +34,6 @@ namespace Intelliflo.Finance.Service.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult GetFactFind(int clientId)
         {
-            throw new Exception("Test");
             if(clientId <= 0)
             {
                 BadRequest("Client Id is required");

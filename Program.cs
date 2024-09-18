@@ -34,6 +34,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ICreditProfile, CreditProfile>();
+builder.Services.AddScoped<IRecommandation, Recommandation>();
 
 builder.Services.AddCors(options =>
 {
