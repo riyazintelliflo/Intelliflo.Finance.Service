@@ -8,12 +8,17 @@ namespace Intelliflo.Finance.Service.Repositories.Services
     {
         public UserCreditProfile GetUserCreditProfile(CreditProfileRequest request)
         {
-            UserCreditProfile response = new ();
             string ssn = request.NumericInquiry.Ssn;
-            response = DataGenerator.GenerateFakeUserCreditProfile();
+            var response = DataGenerator.GenerateFakeUserCreditProfile();
             response.Ssn = ssn;
             return response;
+        }
 
+        public FinicityVerificationOfAssets GetAssetsInfoByID(int clientID)
+        {
+            var response = DataGenerator.GenerateVerificationOfAssets();
+            response.Id = clientID.ToString();
+            return response;
         }
     }
 }

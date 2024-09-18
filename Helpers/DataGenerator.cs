@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Intelliflo.Finance.Service.Models;
 using Intelliflo.Finance.Service.Models.Response;
 using OoplesFinance.YahooFinanceAPI.Models;
 
@@ -162,7 +163,113 @@ namespace Intelliflo.Finance.Service.Helpers
 
             return tradelineFaker.Generate(count);
         }
+        
+        public static FinicityVerificationOfAssets GenerateVerificationOfAssets()
+        {
+            var faker = new Faker();
 
+            return new FinicityVerificationOfAssets
+            {
+                Id = faker.Random.AlphaNumeric(12),
+                RequestId = faker.Random.AlphaNumeric(10),
+                Title = "Finicity Verification of Assets",
+                ConsumerId = faker.Random.Hexadecimal(32),
+                ConsumerSsn = faker.Random.Replace("####"),
+                RequesterName = faker.Company.CompanyName(),
+                Type = "voa",
+                Status = "success",              
+                Days = faker.Random.Number(30, 365),
+                Seasoned = faker.Random.Bool(),
+                Institutions = new List<Institution>
+            {
+                new Institution
+                {
+                    Id = faker.Random.Number(100000, 999999),
+                    Name = faker.Company.CompanyName(),
+                    Accounts = GenerateAccounts(faker)
+                }
+            },
+                Assets = new BaseAsset
+                {
+                    CurrentBalance = faker.Finance.Amount(1000, 100000, 2),
+                    TwoMonthAverage = faker.Finance.Amount(1000, 100000, 2),
+                    SixMonthAverage = faker.Finance.Amount(1000, 100000, 2),
+                    BeginningBalance = faker.Finance.Amount(1000, 100000, 2)
+                },
+                ConsolidatedAvailableBalance = faker.Finance.Amount(1000, 100000, 2)
+            };
+        }
 
+        private static List<Account> GenerateAccounts(Faker faker)
+        {
+            var accounts = new List<Account>();
+            var accountTypes = new[] { "investment", "checking", "savings" };
+
+            for (int i = 0; i < faker.Random.Number(1, 5); i++)
+            {
+                accounts.Add(new Account
+                {
+                    Id = faker.Random.Long(10000000, 99999999),
+                    Number = faker.Finance.Account(8),
+                    OwnerName = faker.Name.FullName(),
+                    OwnerAddress = faker.Address.FullAddress(),
+                    Name = faker.Finance.AccountName(),
+                    Type = faker.PickRandom(accountTypes),
+                    AvailableBalance = faker.Finance.Amount(0, 10000, 2),
+                    AggregationStatusCode = 0,
+                    Balance = faker.Finance.Amount(0, 10000, 2),
+                    AverageMonthlyBalance = faker.Finance.Amount(0, 10000, 2),
+                    Transactions = GenerateTransactions(faker),
+                    Asset = new Asset
+                    {
+                        Type = faker.PickRandom(accountTypes),
+                        CurrentBalance = faker.Finance.Amount(0, 10000, 2),
+                        TwoMonthAverage = faker.Finance.Amount(0, 10000, 2),
+                        SixMonthAverage = faker.Finance.Amount(0, 10000, 2),
+                        BeginningBalance = faker.Finance.Amount(0, 10000, 2)
+                    },
+                    Details = new AccountDetails
+                    {
+                        InterestMarginBalance = faker.Random.Bool() ? (decimal?)faker.Finance.Amount(0, 1000, 2) : null,
+                        AvailableCashBalance = faker.Random.Bool() ? (decimal?)faker.Finance.Amount(0, 1000, 2) : null,
+                        VestedBalance = faker.Random.Bool() ? (decimal?)faker.Finance.Amount(0, 5000, 2) : null,
+                        CurrentLoanBalance = faker.Random.Bool() ? (decimal?)faker.Finance.Amount(0, 10000, 2) : null,
+                        AvailableBalanceAmount = faker.Random.Bool() ? (decimal?)faker.Finance.Amount(0, 1000, 2) : null
+                    }
+                });
+            }
+
+            return accounts;
+        }
+
+        private static List<Intelliflo.Finance.Service.Models.Transaction> GenerateTransactions(Faker faker)
+        {
+            var transactions = new List<Intelliflo.Finance.Service.Models.Transaction>();
+
+            for (int i = 0; i < faker.Random.Number(1, 10); i++)
+            {
+                transactions.Add(new Intelliflo.Finance.Service.Models.Transaction
+                {
+                    Id = faker.Random.Long(1000000000, 9999999999),
+                    Amount = faker.Finance.Amount(-1000, 1000, 2),
+                    Description = GenerateTransactionDescription(faker),
+                    Memo = faker.Lorem.Word(),
+                    InstitutionTransactionId = faker.Random.Replace("##########"),
+                    Category = faker.Commerce.Categories(1)[0]
+                });
+            }
+
+            return transactions;
+        }
+
+        private static string GenerateTransactionDescription(Faker faker)
+        {
+            var transactionTypes = new[] { "Purchase", "Payment", "Withdrawal", "Deposit", "Transfer" };
+            var merchants = new[] { "Walmart", "Amazon", "Target", "Costco", "Home Depot", "Best Buy" };
+
+            return $"{faker.PickRandom(transactionTypes)} - {faker.PickRandom(merchants)}";
+        }
     }
+
 }
+
