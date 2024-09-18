@@ -7,7 +7,6 @@ namespace Intelliflo.Finance.Service.Controllers
     [Route("[controller]")]
     public class FinancialDetailsController : ControllerBase
     {
-        HttpClient client = new HttpClient();
 
         private readonly ILogger<FinancialDetailsController> _logger;
         private readonly HttpClientHelper _httpClientHelper;
