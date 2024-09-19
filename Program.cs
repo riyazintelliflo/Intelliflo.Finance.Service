@@ -1,6 +1,7 @@
 using Intelliflo.Finance.Service.Helpers;
 using Intelliflo.Finance.Service.Repositories.Contracts;
 using Intelliflo.Finance.Service.Repositories.Services;
+using Intelliflo.Finance.Service.Services;
 using NETCore.MailKit.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -34,6 +35,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ICreditProfile, CreditProfile>();
+builder.Services.AddScoped<EmailService>();
+
 builder.Services.AddScoped<IRecommandation, Recommandation>();
 
 builder.Services.AddCors(options =>

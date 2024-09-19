@@ -14,7 +14,7 @@ namespace Intelliflo.Finance.Service.Controllers
             _emailService = emailService;
         }
 
-        [HttpPost("send")]
+        [HttpGet]
         public async Task<IActionResult> SendEmail(string toEmail, string subject, string body)
         {
             await _emailService.SendEmailAsync(toEmail, subject, body);
