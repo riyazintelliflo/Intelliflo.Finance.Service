@@ -6,6 +6,8 @@ using NETCore.MailKit.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Intelliflo.Finance.Service.Middleware;
+using Intelliflo.Finance.Service.Models;
+using Intelliflo.Finance.Service.Repositories.Contracts.YourNamespace.Interfaces;
 
 Log.Logger = new LoggerConfiguration()
            .ReadFrom.Configuration(new ConfigurationBuilder()
@@ -22,6 +24,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<FactfindDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<CRMDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CrmConnection")));
+
+// Register the repository interface with its concrete implementation
+builder.Services.AddScoped<IEmailReferenceRepository, EmailReferenceRepository>();
 builder.Services.AddControllers();
 
 var mailSettings = new MailSettings();
@@ -50,7 +57,7 @@ builder.Services.AddCors(options =>
         });
 });
 var app = builder.Build();
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+//app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseCors("AllowAllOrigins");
 // Enable middleware to serve generated Swagger as a JSON endpoint
 app.UseSwagger();

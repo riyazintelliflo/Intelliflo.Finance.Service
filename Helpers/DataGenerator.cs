@@ -106,7 +106,7 @@ namespace Intelliflo.Finance.Service.Helpers
                     }
                 }
             },
-                Tradeline = GenerateFakeTradelines(2)
+                //Tradeline = GenerateFakeTradelines(2)
             };
 
             return creditProfile;
@@ -132,7 +132,7 @@ namespace Intelliflo.Finance.Service.Helpers
 
             var tradelineFaker = new Faker<Tradeline>()
                 .RuleFor(t => t.AccountNumber, f => f.Finance.Account())
-                .RuleFor(t => t.AccountType, f => f.PickRandom<AccountType>())
+                //.RuleFor(t => t.AccountType, f => f.PickRandom<AccountType>())
                 .RuleFor(t => t.Amount1, f => f.Finance.Amount(0, 10000).ToString("0000000000"))
                 .RuleFor(t => t.Amount1Qualifier, f => f.Random.String2(1, "HC"))
                 .RuleFor(t => t.Amount2, f => f.Finance.Amount(0, 10000).ToString("0000000000"))
