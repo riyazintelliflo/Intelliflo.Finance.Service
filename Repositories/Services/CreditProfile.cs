@@ -18,6 +18,7 @@ namespace Intelliflo.Finance.Service.Repositories.Services
         {
             string ssn = request.NumericInquiry.Ssn;
             var response = DataGenerator.GenerateFakeUserCreditProfile();
+            response.Assets = DataGenerator.GenerateVerificationOfAssets();
             response.Ssn = ssn;
             return response;
         }

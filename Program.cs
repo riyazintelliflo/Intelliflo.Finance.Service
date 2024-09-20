@@ -5,9 +5,8 @@ using Intelliflo.Finance.Service.Services;
 using NETCore.MailKit.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Intelliflo.Finance.Service.Middleware;
-using Intelliflo.Finance.Service.Models;
 using Intelliflo.Finance.Service.Repositories.Contracts.YourNamespace.Interfaces;
+using Intelliflo.Finance.Service.DBContext;
 
 Log.Logger = new LoggerConfiguration()
            .ReadFrom.Configuration(new ConfigurationBuilder()

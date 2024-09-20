@@ -1,4 +1,5 @@
-﻿using Intelliflo.Finance.Service.Models;
+﻿using Intelliflo.Finance.Service.DBContext;
+using Intelliflo.Finance.Service.Models;
 using Intelliflo.Finance.Service.Repositories.Contracts.YourNamespace.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

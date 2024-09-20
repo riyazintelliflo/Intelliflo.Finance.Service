@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Intelliflo.Finance.Service.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Intelliflo.Finance.Service.Models
+namespace Intelliflo.Finance.Service.DBContext
 {
     public class CRMDbContext : DbContext
     {

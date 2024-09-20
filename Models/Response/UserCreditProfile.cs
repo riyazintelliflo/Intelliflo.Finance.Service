@@ -13,6 +13,7 @@ namespace Intelliflo.Finance.Service.Models.Response
         public List<Summary> Summaries { get; set; }
 
         public List<Tradeline> Tradeline { get; set; }
+        public FinicityVerificationOfAssets Assets { get; set; }
     }
 
     //   public List<Tradeline> Tradeline { get; set; }

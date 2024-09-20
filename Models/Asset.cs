@@ -1,11 +1,82 @@
-﻿using System;
+﻿using OoplesFinance.YahooFinanceAPI.Enums;
+using OoplesFinance.YahooFinanceAPI.Models;
+using System;
 using System.Collections.Generic;
 namespace Intelliflo.Finance.Service.Models
 {
+    public enum RiskLevel
+    {
+        Low =1,
+        Moderate,
+        High,
+        ExtremeHigh
+    }
+    public enum AssetType
+    {
+        RealEstate = 1,
+        Debt ,
+        MF,
+        Equity,
+        Gold
+    }
+
+    public class AssetRecommandation
+    {
+        public AssetType AssetType { get; set; }
+        public ScreenerResult ? Asset { get; set; }
+        public int Allocation { get; set; }
+    }
+
+    public class RiskProfile
+    {
+        public RiskLevel RiskCapacity { get; set; }
+        public RiskLevel RiskTolerance { get; set; }
+        public List<int> Allocation { get; set; }
+
+        public static RiskProfile GetRiskProfile(RiskLevel riskCapacity, RiskLevel riskTolerance)
+        {
+            var riskProfiles = new List<RiskProfile>
+            {
+               new RiskProfile { RiskCapacity= RiskLevel.Low, RiskTolerance =RiskLevel.Low, Allocation = [0, 80, 10, 0, 10] },
+               new RiskProfile { RiskCapacity= RiskLevel.Moderate, RiskTolerance =RiskLevel.Low, Allocation =[ 0, 60, 25, 5, 10 ] },
+               new RiskProfile { RiskCapacity= RiskLevel.High, RiskTolerance =RiskLevel.Low, Allocation =[ 0, 50, 30, 10, 10 ] },
+               new RiskProfile { RiskCapacity= RiskLevel.ExtremeHigh, RiskTolerance =RiskLevel.Low, Allocation =[0, 45, 30, 20, 5 ] },
+               new RiskProfile { RiskCapacity= RiskLevel.Low, RiskTolerance =RiskLevel.Moderate, Allocation =[  0, 70, 20, 10, 0 ] },
+               new RiskProfile { RiskCapacity= RiskLevel.Moderate, RiskTolerance =RiskLevel.Moderate, Allocation =[0, 50, 30, 10, 10 ] },
+               new RiskProfile { RiskCapacity= RiskLevel.High, RiskTolerance =RiskLevel.Moderate, Allocation =[ 0, 45, 40, 10, 5 ] },
+               new RiskProfile { RiskCapacity= RiskLevel.ExtremeHigh, RiskTolerance =RiskLevel.Moderate, Allocation = [ 20, 35, 40, 5, 0 ] },
+               new RiskProfile { RiskCapacity= RiskLevel.Low, RiskTolerance =RiskLevel.High, Allocation = [10, 50, 30, 10, 0 ] },
+               new RiskProfile { RiskCapacity= RiskLevel.Moderate, RiskTolerance =RiskLevel.High, Allocation = [ 20, 40, 30, 10, 0 ] },
+               new RiskProfile { RiskCapacity= RiskLevel.High, RiskTolerance =RiskLevel.High, Allocation = [ 15, 30, 45, 5, 5 ] },
+               new RiskProfile { RiskCapacity= RiskLevel.ExtremeHigh, RiskTolerance =RiskLevel.High, Allocation = [25, 20, 45, 0, 10 ] },
+               new RiskProfile { RiskCapacity= RiskLevel.Low, RiskTolerance =RiskLevel.ExtremeHigh, Allocation = [  10, 45, 35, 5, 5 ] },
+               new RiskProfile { RiskCapacity= RiskLevel.Moderate, RiskTolerance =RiskLevel.ExtremeHigh, Allocation = [25, 30, 35, 5, 5 ] },
+               new RiskProfile { RiskCapacity= RiskLevel.High, RiskTolerance =RiskLevel.ExtremeHigh, Allocation = [ 25, 20, 45, 0, 10] },
+               new RiskProfile { RiskCapacity= RiskLevel.ExtremeHigh, RiskTolerance =RiskLevel.ExtremeHigh, Allocation = [ 30, 0, 55, 0, 15 ] }
+
+            };
+            var allocation = riskProfiles.Find(x => x.RiskCapacity == riskCapacity && x.RiskTolerance == riskTolerance);
+
+            if (allocation == null )
+            {
+                throw new ArgumentException("Invalid risk capacity or risk tolerance level");
+            }
+
+            return allocation;
+        }
+    }
+   
     public class Enity
     {
         public long Id { get; set; }
         public string? Name { get; set; }
+    }
+
+    public class  AssetAllocation
+    {
+        public int Percentage { get; set; }
+        public ScreenerType AssetType { get; set; }
+
     }
     public class FinicityVerificationOfAssets
     {
