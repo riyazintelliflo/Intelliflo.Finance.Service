@@ -3,7 +3,7 @@ namespace Intelliflo.Finance.Service.Models
 {
     public class CreditProfileRequest
     {
-        public Requestor Requestor { get; set; }
-        public NumericInquiry NumericInquiry { get; set; }
+        public required Requestor Requestor { get; set; }
+        public required NumericInquiry NumericInquiry { get; set; }
     }
 }

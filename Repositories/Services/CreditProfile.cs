@@ -4,29 +4,32 @@ using Intelliflo.Finance.Service.Models.Response;
 using Intelliflo.Finance.Service.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Intelliflo.Finance.Service.DBContext;
 
 namespace Intelliflo.Finance.Service.Repositories.Services
 {
-    public class CreditProfile : ICreditProfile
+    public class CreditProfile(FactfindDbContext factfindDbContext, CRMDbContext crmDbContext) : ICreditProfile
     {
-        private FactfindDbContext _factfindDbContext;
-        public CreditProfile(FactfindDbContext factfindDbContext)
-        {
-            _factfindDbContext = factfindDbContext;
-        }
+        private readonly FactfindDbContext _factfindDbContext = factfindDbContext;
+        private readonly CRMDbContext _crmDbContext = crmDbContext;
+
         public UserCreditProfile GetUserCreditProfile(CreditProfileRequest request)
         {
             string ssn = request.NumericInquiry.Ssn;
-            var response = DataGenerator.GenerateFakeUserCreditProfile();
-            response.Assets = DataGenerator.GenerateVerificationOfAssets();
+            //https://sandbox-us-api.experian.com/eits/gdp/v1/request?targeturl=https%3A%2F%2Fsandbox-us-api.experian.com%2Fconsumerservices%2Fcredit-profile%2Fv2%2Fcredit-report
+            var response = DataGenerator.GenerateFakeUserCreditProfile(request?.NumericInquiry?.IdType);
+            response.Assets = DataGenerator.GenerateVerificationOfAssets(request?.NumericInquiry?.IdType);
+            string? phoneNo = response.ConsumerIdentity.Phone.FirstOrDefault()?.Number; 
+            if(phoneNo != null)
+            {
+                var contact = _crmDbContext.Contact.Where(c => c.Value == phoneNo)?.AsNoTracking()?.FirstOrDefault();
+                if(contact != null)
+                {
+                    response.IOClientPortfolio = GetUserPortfolio(Convert.ToInt32(contact.CrmContactId));
+                    response.IsIOClient = true;
+                }
+            }
             response.Ssn = ssn;
-            return response;
-        }
-
-        public FinicityVerificationOfAssets GetAssetsInfoByID(int clientID)
-        {
-            var response = DataGenerator.GenerateVerificationOfAssets();
-            response.Id = clientID.ToString();
             return response;
         }
 

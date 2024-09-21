@@ -4,8 +4,8 @@ using OoplesFinance.YahooFinanceAPI.Models;
 
 namespace Intelliflo.Finance.Service.Repositories.Contracts
 {
-    public interface IRecommandation
+    public interface IRecommendation
     {
-        public  Task<List<AssetRecommandation>> GetRecommandations(Country contry, RiskLevel riskCapacity, RiskLevel riskTolerance);
+        public  Task<List<AssetRecommendation>> GetRecommendations(Country contry, RiskLevel riskCapacity, RiskLevel riskTolerance);
     }
 }

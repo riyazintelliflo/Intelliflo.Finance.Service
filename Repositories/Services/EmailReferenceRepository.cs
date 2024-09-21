@@ -7,14 +7,9 @@ namespace Intelliflo.Finance.Service.Repositories.Services
 {
 
 
-    public class EmailReferenceRepository : IEmailReferenceRepository
+    public class EmailReferenceRepository(CRMDbContext context) : IEmailReferenceRepository
     {
-        private readonly CRMDbContext _context;
-
-        public EmailReferenceRepository(CRMDbContext context)
-        {
-            _context = context;
-        }
+        private readonly CRMDbContext _context = context;
 
         public async Task<IEnumerable<TEmailReference>> GetEmailReferenceAsync()
         {

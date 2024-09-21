@@ -7,7 +7,6 @@ namespace Intelliflo.Finance.Service.Repositories.Contracts
         public UserCreditProfile GetUserCreditProfile(CreditProfileRequest request);
 
         public IOClientPortfolio GetUserPortfolio(int clientId);
-        public FinicityVerificationOfAssets GetAssetsInfoByID(int clientID);
         
     }
 }

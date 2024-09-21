@@ -6,7 +6,7 @@ namespace Intelliflo.Finance.Service.Models
     public class TEmailReference
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public int ReferalId { get; set; }
     }
 

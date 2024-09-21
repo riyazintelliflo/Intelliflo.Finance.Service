@@ -1,3 +1,4 @@
+using Intelliflo.Finance.Service.Models;
 using Microsoft.EntityFrameworkCore;
 
 public class FactfindDbContext : DbContext

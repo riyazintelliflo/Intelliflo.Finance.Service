@@ -10,9 +10,9 @@ namespace Intelliflo.Finance.Service.Models
         public int ContactId { get; set; }
         public int IndClientId { get; set; }
         public int CrmContactId { get; set; }
-        public string RefContactType { get; set; }
-        public string Description { get; set; }
-        public string Value { get; set; }
+        public required string RefContactType { get; set; }
+        public required string Description { get; set; }
+        public required string Value { get; set; }
 
     }
 }

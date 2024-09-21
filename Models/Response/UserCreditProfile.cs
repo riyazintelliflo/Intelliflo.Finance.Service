@@ -1,9 +1,7 @@
-﻿
-namespace Intelliflo.Finance.Service.Models.Response
+﻿namespace Intelliflo.Finance.Service.Models.Response
 {
     public class UserCreditProfile
     {
-      
         public List<AddressInformation> AddressInformation { get; set; }
         public ConsumerIdentity ConsumerIdentity { get; set; }
         public List<EmploymentInformation> EmploymentInformation { get; set; }
@@ -11,9 +9,10 @@ namespace Intelliflo.Finance.Service.Models.Response
         public List<RiskModel> RiskModel { get; set; }
         public string Ssn { get; set; }
         public List<Summary> Summaries { get; set; }
-
         public List<Tradeline> Tradeline { get; set; }
         public FinicityVerificationOfAssets Assets { get; set; }
+        public IOClientPortfolio IOClientPortfolio { get; set; }
+        public bool IsIOClient { get; set; }
     }
 
     //   public List<Tradeline> Tradeline { get; set; }

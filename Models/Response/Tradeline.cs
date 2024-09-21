@@ -4,17 +4,37 @@
     {
         Mortgage = 01,
         HomeEquityLineOfCredit = 02,
+        LineOfCredit = 03,
+        HomeImprovementLoan = 04,
         AutoLoan = 05,
+        RecreationalMerchandiseLoan = 06,
         StudentLoan = 07,
         SecuredCreditCard = 08,
         UnsecuredPersonalLoan = 09,
         RetailCreditCard = 10,
+        GovernmentLoan = 11,
+        AgriculturalLoan = 12,
+        SecuredLoan = 13,
+        FHALoan = 14,
+        EducationalLoan = 15,
+        RentalAgreement = 16,
+        ChargeAccount = 17,
         CreditCard = 18,
         ChargeCard = 19,
         FFELPStudentLoan = 20,
+        BusinessLoan = 21,
         Lease = 22,
+        ManufacturedHousingLoan = 23,
+        DebtConsolidationLoan = 24,
+        OverdraftProtection = 25,
+        FactoringAgreement = 26,
+        FamilySupport = 27,
+        Insurance = 28,
+        UtilityCompany = 29,
+        MembershipAssociation = 30,
         InstallmentLoan = 31
     }
+
     public class Tradeline
     {
         public string? AccountNumber { get; set; }

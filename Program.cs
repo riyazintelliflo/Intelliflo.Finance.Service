@@ -42,9 +42,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ICreditProfile, CreditProfile>();
 builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<IRecommendation, Recommendation>();
 
-builder.Services.AddScoped<IRecommandation, Recommandation>();
-builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",

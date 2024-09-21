@@ -8,8 +8,8 @@ using System.Reflection.Metadata;
 namespace Intelliflo.Finance.Service.Controllers
 {
 
-    [ApiController]
-    [Route("api/[controller]")]
+    //[ApiController]
+    //[Route("api/[controller]")]
     public class EmailReferenceController : ControllerBase
     {
         private readonly IEmailReferenceRepository _emailReferenceRepository;

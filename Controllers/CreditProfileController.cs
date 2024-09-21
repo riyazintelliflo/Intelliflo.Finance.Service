@@ -46,23 +46,6 @@ namespace Intelliflo.Finance.Service.Controllers
             }
             return Ok(result);
         }
-
-        [HttpGet("GetAssetsInfo", Name = "GetAssetsInfoByID")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FinicityVerificationOfAssets))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
-        public IActionResult GetAssetsInfoByID(int clientId)
-        {
-            var userCreditProfile = _creditprofile.GetAssetsInfoByID(clientId);
-            if (userCreditProfile == null)
-            {
-                return NotFound("User Assets profile not found.");
-            }
-            return Ok(userCreditProfile);
-        }
-
     }
 
 }
