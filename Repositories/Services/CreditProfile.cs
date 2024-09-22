@@ -47,5 +47,10 @@ namespace Intelliflo.Finance.Service.Repositories.Services
                 Liability = liabilities
             };
         }
+
+        public IncomeStatistics PeerComparison(int age, Gender gender)
+        {
+           return  ComparisionProfiler.GetIncomeStatistics(gender, age);
+        }
     }
 }

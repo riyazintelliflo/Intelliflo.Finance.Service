@@ -5,6 +5,7 @@
         public Dob Dob { get; set; }
         public Name Name { get; set; }
         public List<Phone> Phone { get; set; }
+        public Gender Gender { get; set; }
     }
 
     public class Dob

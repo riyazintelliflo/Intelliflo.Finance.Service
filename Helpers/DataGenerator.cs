@@ -75,7 +75,8 @@ namespace Intelliflo.Finance.Service.Helpers
                             Source = faker.Random.String2(1),
                             Type = faker.Random.String2(1)
                         }
-                ]
+                ],
+                    Gender = faker.PickRandom<Gender>()
                 },
                 EmploymentInformation =
             [

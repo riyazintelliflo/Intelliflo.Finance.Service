@@ -1,22 +1,16 @@
+using Intelliflo.Finance.Service.Models;
+using Intelliflo.Finance.Service.Models.Response;
+using Intelliflo.Finance.Service.Repositories.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
 namespace Intelliflo.Finance.Service.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class FinancialDetailsController : ControllerBase
+    [Route("api/[controller]")]
+    public class FinancialDetailsController(ICreditProfile creditProfile) : ControllerBase
     {
-
-        private readonly ILogger<FinancialDetailsController> _logger;
-        private readonly HttpClientHelper _httpClientHelper;
-        private static readonly string ApiKey = "489e7a66632291ecfbd90ebe08c6192aed42dfe9";
-
-        public FinancialDetailsController(ILogger<FinancialDetailsController> logger)
-        {
-            _logger = logger;
-            _httpClientHelper = new HttpClientHelper();
-        }
+        private readonly ICreditProfile _creditProfile = creditProfile;
 
         /// <summary>
         /// Get income details.
@@ -24,27 +18,24 @@ namespace Intelliflo.Finance.Service.Controllers
         /// </summary>
         /// <param name="filter">Filter should be comma separated values used in API</param>
         /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> GetIncome(string filter, int year)
-        {            
-            if(string.IsNullOrEmpty(filter))
+        [HttpGet("GetIncomePeerComparision", Name = "GetPeerComparisionIncome")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IncomeStatistics))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetPeerComparisionIncome(Gender gender, int age)
+        {
+            if (age > 0 && gender != null)
             {
-                filter = $"?get=NAME,B01001_001E&for=state:*&key={ApiKey}";
-            }
-            else
-            {
-                filter = $"?get={filter}&for=state:*&key={ApiKey}";
+                var response = _creditProfile.PeerComparison(age, gender);
+                if (response == null)
+                {
+                    return NotFound("peer comparison data  not found.");
+                }
+                return Ok(response);
             }
 
-            var response = await _httpClientHelper.GetAsync(filter, year);
-
-            if(response == null) 
-            {
-                return NotFound();
-            }
-            var json = JArray.Parse(response);
-            Console.WriteLine(json.ToString());
-            return Ok(response);            
+            return BadRequest("Invalid input");
         }
 
     }

@@ -8,5 +8,7 @@ namespace Intelliflo.Finance.Service.Repositories.Contracts
 
         public IOClientPortfolio GetUserPortfolio(int clientId);
         
+
+        public IncomeStatistics PeerComparison(int age, Gender gender);
     }
 }
